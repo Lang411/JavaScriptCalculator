@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<link href="http://fonts.googleapis.com/css?family=Lobster">
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"/>
+
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+	<!--<link rel="stylesheet" type="text/css" href="mystyle.css">-->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+
+	<title>JavaScript Calculator</title>
+
+	<style type="text/css">
+		#board{
+			text-align: center;
+			width: 200px; 
+			margin: 0px auto;
+			background-color: #cdcdcd;
+		}
+
+	</style>
+
+
+</head>
+<body>
+<h1></h1>
+	<div class="well" id="board">
+		<table>
+		<tr>
+		<td colspan="4" id="thescreen" class="output well">          
+		</td>
+		</tr>
+				<tr>
+					<td><button class="btn btn-block btn-info button" onclick="clearscreen();">AC</button></td>
+					<td><button class="btn btn-block btn-info button" onclick="screen();">-</button></td>
+					<td><button class="btn btn-block btn-info button" onclick="screen();">-</button></td>
+					<td><button class="btn btn-block btn-info button" onclick="screen();">/</button></td>
+				</tr>
+				<tr>
+					<td><button class="btn btn-block btn-info button" onclick="screen(7);">7</button></td>
+					<td><button class="btn btn-block btn-info button" onclick="screen(8);">8</button></td>
+					<td><button class="btn btn-block btn-info button" onclick="screen(9);">9</button></td>
+					<td><button class="btn btn-block btn-info button" onclick="screen('*');">X</button></td>
+				</tr>
+				<tr>
+					<td><button class="btn btn-block btn-info button" onclick="screen(4);">4</button></td>
+					<td><button class="btn btn-block btn-info button" onclick="screen(5);">5</button></td>
+					<td><button class="btn btn-block btn-info button" onclick="screen(6);">6</button></td>
+					<td><button class="btn btn-block btn-info button" onclick="screen('-');">-</button></td>
+				</tr>
+				<tr>
+					<td><button class="btn btn-block btn-info button" onclick="screen(1);">1</button></td>
+					<td><button class="btn btn-block btn-info button" onclick="screen(2);">2</button></td>
+					<td><button class="btn btn-block btn-info button" onclick="screen(3);">3</button></td>
+					<td><button class="btn btn-block btn-info button" onclick="screen('+');">+</button></td>
+				</tr>
+				<tr>
+					<td><button class="btn btn-block btn-info button" onclick="screen(0);">0</button></td>
+					<td colspan="2"><button class="btn btn-block btn-info button" onclick="calculate();">=</button></td>
+					<td><button class="btn btn-block btn-info button" onclick="screen('+');">+</button></td>
+				</tr>
+
+			</table>
+		</div>
+
+	</body>
+
+	<script type="text/javascript">
+		var toberun = "";
+		function screen(dispnumb){
+			toberun = toberun + dispnumb;
+			console.log(toberun)
+			thescreen.innerHTML = dispnumb;
+		}
+		function clearscreen(dispnumb){
+			toberun = "";
+			console.log(toberun)
+			thescreen.innerHTML = dispnumb;
+		}
+		function calculate(){
+			thescreen.innerHTML = eval(toberun);
+		}
+
+	</script>
+
+	</html>
