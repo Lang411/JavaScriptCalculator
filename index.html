@@ -1,10 +1,10 @@
 <!DOCTYPE html>
+ <meta charset="UTF-8"> 
 <html>
 <head>
 
 	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 	<link href="http://fonts.googleapis.com/css?family=Lobster">
-	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"/>
 
 	<!-- jQuery library -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -15,15 +15,43 @@
 	<!--<link rel="stylesheet" type="text/css" href="mystyle.css">-->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
-
 	<title>JavaScript Calculator</title>
 
 	<style type="text/css">
+		body {
+			background: url("http://thumbs.dreamstime.com/z/notepad-office-desk-top-view-pens-smartphone-coffee-cup-background-33479493.jpg");
+			background-size:cover;
+		}
+		
+		.pad {
+			height: 120px;
+		}
+		
 		#board{
 			text-align: center;
-			width: 180px; 
+			max-width: 150px;
+			margin: 5px auto;
+			padding: 10px ;
+			background-color: black;
+			box-shadow: 10px 10px 5px #888888;
+		}
+		
+		.screen {
+			font-family: "Lucida Console", "Lucida Sans Typewriter", Monaco, "Bitstream Vera Sans Mono", monospace;
+			font-size:25px;
+			text-align: center;
+			max-width: 120px;
+			height: 40px;
 			margin: 0px auto;
-			background-color: #cdcdcd;
+			background-color: white;
+		}
+		
+		.calc {
+			text-align: center;
+			margin: 5px auto;
+			padding: 100px auto;
+			border-width: 1px;
+			box-shadow: 10px 10px 5px #888888;
 		}
 
 	</style>
@@ -31,39 +59,45 @@
 
 </head>
 <body>
-	<h1></h1>
-	<div class="well" id="board">
+	<div class="pad">
+		<h1></h1>
+	</div>
+	
+	<div class="well calc" id="board">
 		<table>
 			<tr>
-				<td colspan="4" id="thescreen" class="output well">          
+				<td colspan="4" id="thescreen" class="output screen">          
 				</td>
 			</tr>
 			<tr>
 				<td colspan="2"><button class="btn btn-block btn-danger button" onclick="totalclearscreen();">AC</button></td>
-				<td colspan="2"><button class="btn btn-block btn-warning button" onclick="clearscreen();">C</button></td>
-			</tr>
-			<tr>
-				<td><button class="btn btn-block btn-info button" onclick="screen(7);">7</button></td>
-				<td><button class="btn btn-block btn-info button" onclick="screen(8);">8</button></td>
-				<td><button class="btn btn-block btn-info button" onclick="screen(9);">9</button></td>
+				<td><button class="btn btn-block btn-warning button" onclick="clearscreen();">C</button></td>
 				<td><button class="btn btn-block btn-primary button" onclick="screen('/');">/</button></td>
 			</tr>
 			<tr>
-				<td><button class="btn btn-block btn-info button" onclick="screen(4);">4</button></td>
-				<td><button class="btn btn-block btn-info button" onclick="screen(5);">5</button></td>
-				<td><button class="btn btn-block btn-info button" onclick="screen(6);">6</button></td>
+				<td><button class="btn btn-block btn-default button" onclick="screen(7);">7</button></td>
+				<td><button class="btn btn-block btn-default button" onclick="screen(8);">8</button></td>
+				<td><button class="btn btn-block btn-default button" onclick="screen(9);">9</button></td>
 				<td><button class="btn btn-block btn-primary button" onclick="screen('*');">X</button></td>
+
 			</tr>
 			<tr>
-				<td><button class="btn btn-block btn-info button" onclick="screen(1);">1</button></td>
-				<td><button class="btn btn-block btn-info button" onclick="screen(2);">2</button></td>
-				<td><button class="btn btn-block btn-info button" onclick="screen(3);">3</button></td>
+				<td><button class="btn btn-block btn-default button" onclick="screen(4);">4</button></td>
+				<td><button class="btn btn-block btn-default button" onclick="screen(5);">5</button></td>
+				<td><button class="btn btn-block btn-default button" onclick="screen(6);">6</button></td>
 				<td><button class="btn btn-block btn-primary button" onclick="screen('-');">-</button></td>
 			</tr>
 			<tr>
-				<td><button class="btn btn-block btn-info button" onclick="screen(0);">0</button></td>
-				<td colspan="2"><button class="btn btn-block btn-primary button" onclick="calculate();">=</button></td>
+				<td><button class="btn btn-block btn-default button" onclick="screen(1);">1</button></td>
+				<td><button class="btn btn-block btn-default button" onclick="screen(2);">2</button></td>
+				<td><button class="btn btn-block btn-default button" onclick="screen(3);">3</button></td>
 				<td><button class="btn btn-block btn-primary button" onclick="screen('+');">+</button></td>
+			</tr>
+			<tr>
+				<td><button class="btn btn-block btn-default button" onclick="screen(0);">0</button></td>
+				<td><button class="btn btn-block btn-default button" onclick="screen('.');">.</button></td>
+				<td colspan="2"><button class="btn btn-block btn-primary button" onclick="calculate();">=</button></td>
+
 			</tr>
 
 		</table>
@@ -72,37 +106,50 @@
 </body>
 
 <script type="text/javascript">
-	var totalcalc = "";
-	var buildscreen = "";
+	var totalcalc = ['',''];
+	//totalcalc[0] = the full calculation
+	//totalcalc[1] = the number on the screen
+	
 	function screen(numbinput){
-		if (typeof numbinput !== 'number'){
-			buildscreen = buildscreen;
-			totalcalc = totalcalc + numbinput;
-			thescreen.innerHTML = buildscreen;
-			buildscreen = "";
+		if (typeof numbinput !== 'number' && numbinput !== '.'){
+			totalcalc[1] = totalcalc[1];
+			totalcalc[0] = totalcalc[0] + numbinput;
+			thescreen.innerHTML = totalcalc[1];
+			totalcalc[1] = '';
+			console.log(totalcalc[0])
+			return totalcalc
 		}
 		else {
-			buildscreen = buildscreen + numbinput;
-			totalcalc = totalcalc + numbinput;
-			thescreen.innerHTML = buildscreen;
+			totalcalc[1] = totalcalc[1] + numbinput;
+			totalcalc[0] = totalcalc[0] + numbinput;
+			thescreen.innerHTML = totalcalc[1];
+			console.log(totalcalc[0])
+			return totalcalc
 		}
-
-		console.log(totalcalc)
+		console.log(totalcalc[0])
 		//thescreen.innerHTML = dispnumb;
 	}
+	
 	function clearscreen(){
-		buildscreen = "";
-		console.log(totalcalc)
-		thescreen.innerHTML = buildscreen;
+		totalcalc[0] = totalcalc[0].replace(totalcalc[1],'');
+		totalcalc[1] = '';
+		thescreen.innerHTML = totalcalc[1];
+		console.log(totalcalc[0])
+		return totalcalc
 	}
+	
 	function totalclearscreen(){
-		var totalcalc = "";
-		var buildscreen = "";
-		console.log(totalcalc)
-		thescreen.innerHTML = buildscreen;
+		totalcalc = ['',''];
+		console.log(totalcalc[0])
+		thescreen.innerHTML = totalcalc[1];
+		return totalcalc
 	}
+	
 	function calculate(){
-		thescreen.innerHTML = eval(totalcalc);
+		totalcalc[0] = eval(totalcalc[0]);
+		totalcalc[1] = '';
+		console.log(totalcalc[0])
+		thescreen.innerHTML = totalcalc[0];
 	}
 
 </script>
